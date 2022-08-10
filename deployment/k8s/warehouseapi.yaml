@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warehouseapi
+spec:
+  selector:
+    matchLabels:
+      app: daprdemo
+      tier: warehouseapi
+  template:
+    metadata:
+      labels:
+        app: daprdemo
+        tier: warehouseapi
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "warehouseapi"
+        dapr.io/app-port: "80"                   
+        dapr.io/config: "zipkin"
+    spec:
+      containers:
+      - name: warehouseapi
+        image: <acr>.azurecr.io/warehouseapi:1.1
+        ports:
+        - containerPort: 80
+        env:
+        - name: DAPR_HTTP_PORT
+          value: "3500"        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warehouseapi
+  labels:
+    app: daprdemo
+spec:
+  selector:
+    app: daprdemo
+    tier: warehouseapi
+  ports:
+    - protocol: TCP
+      port: 80
+  type: ClusterIP
+

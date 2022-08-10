@@ -1,0 +1,16 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: twilio
+spec:
+  type: bindings.twilio.sms
+  version: v1
+  metadata:
+  - name: toNumber # required.
+    value: <number>
+  - name: fromNumber # required.
+    value: <number>
+  - name: accountSid # required.
+    value: <sid>
+  - name: authToken # required.
+    value: <token>

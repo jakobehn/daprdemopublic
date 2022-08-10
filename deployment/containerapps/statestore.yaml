@@ -1,0 +1,33 @@
+# components.yaml for Azure Blob storage component
+- name: statestore
+  type: state.azure.cosmosdb
+  version: v1
+  metadata:
+  - name: url
+    value: https://<account>.documents.azure.com:443/
+  - name: masterKey
+    value: <masterKey>
+  - name: database
+    value: daprdemo
+  - name: collection
+    value: orders
+
+- name: orderpubsub
+  type: pubsub.azure.servicebus
+  version: v1
+  metadata:
+  - name: connectionString # Required
+    value: "<connectionString>"
+
+- name: twilio
+  type: bindings.twilio.sms
+  version: v1
+  metadata:
+  - name: toNumber # required.
+    value: <number>
+  - name: fromNumber # required.
+    value: <number>
+  - name: accountSid # required.
+    value: <sid>
+  - name: authToken # required.
+    value: <token>
